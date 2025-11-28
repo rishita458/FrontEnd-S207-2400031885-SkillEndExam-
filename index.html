@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Fancy Student Search</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<h1 class="title">Student Search</h1>
+<p class="subtitle">Try below!</p>
+
+<div class="search-box">
+    <span class="icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="Search student by name or ID..." autocomplete="off" />
+</div>
+
+<div class="student-section">
+    <ul id="studentList">
+        <li data-name="Rishita" data-roll="2400031001">Rishita – 2400031885</li>
+        <li data-name="Chnadrika" data-roll="2400031002">Chandrika – 2400031002</li>
+        <li data-name="Guru" data-roll="2400031004">Guru – 2400031004</li>
+        <li data-name="Pavani" data-roll="2400031003">pavani – 2400031003</li>
+        
+        <li data-name="Pavan" data-roll="2400031005">Pavan – 2400031005</li>
+        <li data-name="Divya" data-roll="2400031006">Divya – 2400031006</li>
+        <li data-name="Naveen" data-roll="2400031007">Naveen – 2400031007</li>
+        <li data-name="Sravani" data-roll="2400031008">Sravani – 2400031008</li>
+        <li data-name="Vivek" data-roll="2400031009">Vivek – 2400031009</li>
+        <li data-name="Rohini" data-roll="2400031010">Rohini – 2400031010</li>
+        <li data-name="Ashish" data-roll="2400031011">Ashish – 2400031011</li>
+        <li data-name="Pravallika" data-roll="2400031012">Pravallika – 2400031012</li>
+        <li data-name="Lokesh" data-roll="2400031013">Lokesh – 2400031013</li>
+        <li data-name="Soniya" data-roll="2400031014">Soniya – 2400031014</li>
+        <li data-name="Manisha" data-roll="2400031015">Manisha – 2400031015</li>
+        <li data-name="Tarun" data-roll="2400031016">Tarun – 2400031016</li>
+        <li data-name="Keerthana" data-roll="2400031017">Keerthana – 2400031017</li>
+        <li data-name="Vinay" data-roll="2400031018">Vinay – 2400031018</li>
+        <li data-name="Yamuna" data-roll="2400031019">Yamuna – 2400031019</li>
+        <li data-name="Shiva" data-roll="2400031020">Shiva – 2400031020</li>
+    </ul>
+</div>
+
+<script>
+const input = document.getElementById('searchInput');
+const listItems = Array.from(document.querySelectorAll('#studentList li'));
+
+function normalize(s){
+  return s.trim().toLowerCase();
+}
+
+function matches(query, name, roll){
+  if (!query) return true;
+  const q = normalize(query);
+  const qHasDigit = /\d/.test(q);
+  if (qHasDigit){
+    if (roll.includes(q)) return true;
+  }
+  if (name.includes(q)) return true;
+  return false;
+}
+
+input.addEventListener('input', (e) => {
+  const q = e.target.value;
+  const qNorm = normalize(q);
+  listItems.forEach(li => {
+    const name = normalize(li.getAttribute('data-name') || '');
+    const roll = normalize(li.getAttribute('data-roll') || '');
+    li.style.display = matches(qNorm, name, roll) ? 'block' : 'none';
+  });
+});
+</script>
+
+</body>
+</html>
